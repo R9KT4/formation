@@ -9,7 +9,7 @@ import org.hibernate.Transaction;
 import com.etiennedesticourt.formation.model.Computer;
 import com.etiennedesticourt.formation.util.HibernateUtil;
 
-public class ComputerFetcherService {
+public class ComputerFetcher {
 	private static final String SELECT_COMPUTERS_QUERY = "from Computer"; 
 	
 	public static ArrayList<Computer> getComputers() {
