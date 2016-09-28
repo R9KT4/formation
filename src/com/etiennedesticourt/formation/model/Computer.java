@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,7 +16,8 @@ public class Computer {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	private int companyId;
+	@ManyToOne(targetEntity = Company.class)
+	private Company company;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "introduced")
@@ -27,5 +29,18 @@ public class Computer {
 		return name;
 	}
 	
-
+	public Timestamp getIntroduced(){
+		return introduced;
+	}
+	
+	public Timestamp getDiscontinued(){
+		return discontinued;
+	}
+	
+	public String getCompanyName(){
+		if (company != null) {
+			return company.getName();
+		}
+		return null;
+	}
 }
