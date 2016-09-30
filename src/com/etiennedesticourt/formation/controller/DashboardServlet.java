@@ -16,7 +16,7 @@ import com.etiennedesticourt.formation.service.ComputerDao;
 @WebServlet(name="DashboardServlet", urlPatterns = {"/dashboardServlet"})
 public class DashboardServlet extends HttpServlet {
 	private final String DELETE_REQUEST = "DELETE";
-	private final String SEARCH_REQUEST = "SEARCH";
+	private final String SEARCH_REQUEST = "search";
 	private final String ACTION_PARAM = "action";
 	private final String VALUE_PARAM = "value";
 	
@@ -29,7 +29,16 @@ public class DashboardServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			 throws ServletException, IOException {
-		ArrayList<Computer> computers = ComputerDao.getComputers();
+		ArrayList<Computer> computers;
+		
+		String name = request.getParameter("search");
+		if (name != null){
+			computers = ComputerDao.searchComputers(name);						
+		}
+		else{
+			computers = ComputerDao.getComputers();	
+		}
+		
 		request.setAttribute("computers", computers);
 		request.setAttribute("numComputers", computers.size());
 		request.getRequestDispatcher("/dashboard.jsp" ).forward(request, response);	
@@ -40,20 +49,14 @@ public class DashboardServlet extends HttpServlet {
 			 throws ServletException, IOException {
 		String action = request.getParameter(ACTION_PARAM);
 		String value = request.getParameter(VALUE_PARAM);
-		System.out.println(action);;
-		System.out.println(value);
 		if (action.equals(DELETE_REQUEST)) {
-			System.out.println("Deleting");
 			try  {
 				int id = Integer.parseInt(value);
 				ComputerDao.deleteComputer(id);
 			}
 			catch (NumberFormatException e) {				
 			}
+			response.sendRedirect("/formation/dashboardServlet");
 		}
-		else if (action == SEARCH_REQUEST) {
-			
-		}
-		response.sendRedirect("/formation/dashboardServlet");
 	}
 }
