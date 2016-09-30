@@ -16,6 +16,7 @@ import com.etiennedesticourt.formation.service.ComputerFetcher;
 @WebServlet(name="DashboardServlet", urlPatterns = {"/dashboardServlet"})
 public class DashboardServlet extends HttpServlet {
 	
+	
 	public DashboardServlet() {
 		super();
 	}
@@ -26,6 +27,7 @@ public class DashboardServlet extends HttpServlet {
 			 throws ServletException, IOException {
 		ArrayList<Computer> computers = ComputerFetcher.getComputers();
 		request.setAttribute("computers", computers);
+		request.setAttribute("numComputers", computers.size());
 		request.getRequestDispatcher("/dashboard.jsp" ).forward(request, response);	
 	}
 	
