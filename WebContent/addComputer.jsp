@@ -10,7 +10,7 @@
 
 	<div class="row">
 		<div class="col-md-4">
-			<form role="form" action="addComputer.jsp" method="POST">
+			<form role="form" action="dashboardServlet" method="POST">
 				<div class="form-group">
 					<label for="name">Computer name</label> <input type="text"
 						class="form-control" id="name" placeholder="Enter name">
