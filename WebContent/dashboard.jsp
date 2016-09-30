@@ -35,6 +35,7 @@
 						<th>Discontinued Date</th>
 						<!-- Table header for Company -->
 						<th>Company</th>
+						<th>Delete</th>
 					</tr>
 				</thead>
 			<tbody>
@@ -45,6 +46,14 @@
 					<td><fmt:formatDate value="${computer.introduced}" pattern="yyyy-MM-dd" /></td>
 					<td><fmt:formatDate value="${computer.introduced}" pattern="yyyy-MM-dd" /></td>
 					<td><c:out value="${computer.getCompanyName()}" default="N/A"/></td>
+					
+					<td>
+						<form action="" method="post">
+						  <input type="hidden" name="action" value="DELETE"/>
+						  <input type="hidden" name="value" value="${computer.id}"/>
+						  <button type="submit">x</button>
+						</form>
+					</td>
 			      	<th></th>
 			    </tr>
 			  </c:forEach>

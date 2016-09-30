@@ -9,8 +9,9 @@ import org.hibernate.Transaction;
 import com.etiennedesticourt.formation.model.Computer;
 import com.etiennedesticourt.formation.util.HibernateUtil;
 
-public class ComputerFetcher {
-	private static final String SELECT_COMPUTERS_QUERY = "from Computer"; 
+public class ComputerDao {
+	private static final String SELECT_COMPUTERS_QUERY = "from Computer";
+	private static final String DELETE_COMPUTER_QUERY = "delete Computer where id= :id";
 	
 	public static ArrayList<Computer> getComputers() {
 		ArrayList<Computer> computers;
@@ -34,5 +35,26 @@ public class ComputerFetcher {
 		 }
 		 
 		 return computers;		 
+	}
+	
+	public static void deleteComputer(int id) {		
+	    Session session = HibernateUtil.openSession();
+	    
+	    Transaction tx = null;
+	    try {
+		    tx = session.beginTransaction();
+		    Query q = session.createQuery(DELETE_COMPUTER_QUERY).setParameter("id", id);
+		    q.executeUpdate();
+		    tx.commit();
+		 }
+		 catch (Exception e) {
+		     if (tx != null) {
+		    	 tx.rollback();
+		     }
+		     throw e;
+		 }
+		 finally {
+		     session.close();
+		 }
 	}
 }

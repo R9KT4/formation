@@ -25,6 +25,10 @@ public class Computer {
 	@Column(name = "discontinued")
 	private Timestamp discontinued;
 	
+	public int getId(){
+		return id;
+	}
+	
 	public String getName(){
 		return name;
 	}
